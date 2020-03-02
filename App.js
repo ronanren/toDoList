@@ -12,7 +12,7 @@ export default function App() {
           data={state.tasks}
           renderItem={({item}) => <Text style={styles.item}>{item.name}</Text>}/>
           <Button
-            onPress={() => Alert.alert('Simple Button pressed')}
+            onPress={() => Alert.alert('Add tasks')}
             title="Add"
             color="#841584"
             />
