@@ -2,9 +2,8 @@ import React from 'react';
 import { StyleSheet, Text, View, Button, Alert, FlatList, Dimensions } from 'react-native';
 
 export default function App() {
-    
-    state = { tasks: [ {name: 'Buy water'},
-            {name: 'Study sciences'}] };
+    let state = { tasks: [ {name: 'Buy water'},
+            {name: 'Study sciences'}] }
     return (
       <View style={styles.container}>
           <Text style={styles.text}>To Do List</Text>
@@ -12,7 +11,7 @@ export default function App() {
           data={state.tasks}
           renderItem={({item}) => <Text style={styles.item}>{item.name}</Text>}/>
           <Button
-            onPress={() => Alert.alert('Add tasks')}
+            onPress={() => Alert.alert('Add tasks !')}
             title="Add"
             color="#841584"
             />
