@@ -5,7 +5,7 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      tasks: [{name: "tache 1"}, {name: "tache 2"}],
+      tasks: [{name: "tache 1", index: 0}, {name: "tache 2", index: 1}],
       onChangeText: "New task",
 
     };
@@ -14,17 +14,17 @@ export default class App extends React.Component {
     let tasks = [...this.state.tasks];
 
     // Add item to it
-    tasks.push({ name: this.state.onChangeText});
+    tasks.push({ name: this.state.onChangeText, index: this.state.tasks.length + 1});
 
     // Set state
     this.setState({ tasks });
   }
 
-  deleteTask = () => {
+  deleteTask = (index) => {
     let tasks = [...this.state.tasks];
-
+    console.log(index);
     // Add item to it
-    tasks.push({ name: this.state.onChangeText});
+    tasks = tasks.filter(x => {return x.index != index;});
 
     // Set state
     this.setState({ tasks });
@@ -40,7 +40,9 @@ export default class App extends React.Component {
           data={this.state.tasks}
           renderItem={({item}) => 
           <View>
-            <Button style={styles.buttonDelete} onPress={this.deleteTask} title="X" color="#841584"/>
+          <View style={styles.buttonDelete}>
+            <Button onPress={() => this.deleteTask(item.index)} title="X"/>
+          </View>
             <Text style={styles.item}>{item.name}</Text>
             
             </View> }
@@ -77,6 +79,7 @@ const styles = StyleSheet.create({
       fontSize: 18,
       height: 45,
       marginTop: 5,
+      paddingLeft: 60,
       width: ScreenWidth,
       borderBottomColor: '#ccc',
       borderBottomWidth: 1
@@ -94,6 +97,11 @@ const styles = StyleSheet.create({
       marginBottom: 20,
     },
     buttonDelete: {
-
+      zIndex: 1,
+      position: 'relative',
+      marginBottom: -30,
+      top: 10,
+      left: 10,
+      width: 40,
     },
 });
