@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button, Alert, FlatList, Dimensions, TextInput, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, Text, View, Button, FlatList, Dimensions, TextInput, KeyboardAvoidingView } from 'react-native';
+
 
 export default class App extends React.Component {
   constructor(props) {
@@ -13,27 +14,18 @@ export default class App extends React.Component {
 
   addTask = () => {
     let tasks = [...this.state.tasks];
-
-    // Add item to it
     tasks.push({ name: this.state.onChangeText, index: this.state.tasks.length + 1});
-
-    // Set state
     this.setState({tasks, onChangeText: ""});
   }
 
   deleteTask = (index) => {
     let tasks = [...this.state.tasks];
-    console.log(index);
-    // Add item to it
     tasks = tasks.filter(x => {return x.index != index;});
-
-    // Set state
     this.setState({tasks});
   }
 
 
   render() {
-
     return (
       <View style={styles.container}>
           <Text style={styles.text}>To Do List</Text>
@@ -43,6 +35,7 @@ export default class App extends React.Component {
           <View>
           <View style={styles.buttonDelete}>
             <Button onPress={() => this.deleteTask(item.index)} title="X"/>
+            
           </View>
             <Text style={styles.item}>{item.name}</Text>
             
@@ -104,5 +97,6 @@ const styles = StyleSheet.create({
       top: 10,
       left: 10,
       width: 40,
+      
     },
 });
