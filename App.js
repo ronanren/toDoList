@@ -6,10 +6,11 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       tasks: [{name: "tache 1", index: 0}, {name: "tache 2", index: 1}],
-      onChangeText: "New task",
+      onChangeText: "",
 
     };
   }
+
   addTask = () => {
     let tasks = [...this.state.tasks];
 
@@ -17,7 +18,7 @@ export default class App extends React.Component {
     tasks.push({ name: this.state.onChangeText, index: this.state.tasks.length + 1});
 
     // Set state
-    this.setState({ tasks });
+    this.setState({tasks, onChangeText: ""});
   }
 
   deleteTask = (index) => {
@@ -27,7 +28,7 @@ export default class App extends React.Component {
     tasks = tasks.filter(x => {return x.index != index;});
 
     // Set state
-    this.setState({ tasks });
+    this.setState({tasks});
   }
 
 
@@ -50,13 +51,13 @@ export default class App extends React.Component {
           <KeyboardAvoidingView behavior="padding" enabled>
           <TextInput
           style={styles.textInput}
+          placeholder="New task"
           onChangeText={onChangeText => this.setState({onChangeText})}
           value={this.state.onChangeText}
           />
           <Button
             onPress={this.addTask}
-            title="Add"
-            color="#841584"
+            title="Add task"
             />
           </KeyboardAvoidingView>
           
