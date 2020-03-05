@@ -1,24 +1,68 @@
-import React from 'react';
-import { StyleSheet, Text, View, Button, Alert, FlatList, Dimensions } from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, Text, View, Button, Alert, FlatList, Dimensions, TextInput, KeyboardAvoidingView } from 'react-native';
 
-export default function App() {
-    let state = { tasks: [ {name: 'Buy water'},
-            {name: 'Study sciences'}] }
+export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      tasks: [{name: "tache 1"}, {name: "tache 2"}],
+      onChangeText: "New task",
+
+    };
+  }
+  addTask = () => {
+    let tasks = [...this.state.tasks];
+
+    // Add item to it
+    tasks.push({ name: this.state.onChangeText});
+
+    // Set state
+    this.setState({ tasks });
+  }
+
+  deleteTask = () => {
+    let tasks = [...this.state.tasks];
+
+    // Add item to it
+    tasks.push({ name: this.state.onChangeText});
+
+    // Set state
+    this.setState({ tasks });
+  }
+
+
+  render() {
+
     return (
       <View style={styles.container}>
           <Text style={styles.text}>To Do List</Text>
           <FlatList
-          data={state.tasks}
-          renderItem={({item}) => <Text style={styles.item}>{item.name}</Text>}/>
+          data={this.state.tasks}
+          renderItem={({item}) => 
+          <View>
+            <Button style={styles.buttonDelete} onPress={this.deleteTask} title="X" color="#841584"/>
+            <Text style={styles.item}>{item.name}</Text>
+            
+            </View> }
+          keyExtractor={(item, index) => index.toString()}/>
+          <KeyboardAvoidingView behavior="padding" enabled>
+          <TextInput
+          style={styles.textInput}
+          onChangeText={onChangeText => this.setState({onChangeText})}
+          value={this.state.onChangeText}
+          />
           <Button
-            onPress={() => Alert.alert('Add tasks !')}
+            onPress={this.addTask}
             title="Add"
             color="#841584"
             />
+          </KeyboardAvoidingView>
+          
+          
       </View>
 
     );
-}
+} }
 
 let ScreenWidth = Dimensions.get("window").width;
 const styles = StyleSheet.create({
@@ -41,5 +85,15 @@ const styles = StyleSheet.create({
       fontSize: 25,
       marginTop: 15, 
       marginBottom: 20
-    }
+    },
+    textInput: {
+      height: 40, 
+      borderColor: 'gray', 
+      borderWidth: 1,
+      width: ScreenWidth,
+      marginBottom: 20,
+    },
+    buttonDelete: {
+
+    },
 });
