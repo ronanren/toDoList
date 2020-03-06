@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button, FlatList, Dimensions, TextInput, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, Text, View, Button, FlatList, Dimensions, TextInput, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
 
 
 export default class App extends React.Component {
@@ -50,13 +50,12 @@ export default class App extends React.Component {
           onChangeText={onChangeText => this.setState({onChangeText})}
           value={this.state.onChangeText}
           />
-          <Button
-            onPress={this.addTask}
-            title="Add task"
-            />
+          <TouchableOpacity onPress={this.addTask} >
+            <View style={styles.buttonAdd} >
+              <Text style={styles.buttonAddText}>+</Text>
+            </View>
+          </TouchableOpacity>
           </KeyboardAvoidingView>
-          
-          
       </View>
 
     );
@@ -98,7 +97,21 @@ const styles = StyleSheet.create({
       marginBottom: -30,
       top: 10,
       left: 10,
-      width: 40,
+      width: 40,  
+    },
+    buttonAdd: {
+      padding: 5,
+      height: 50,
+      width: 50,
+      borderRadius: 100,  
+      backgroundColor:'rgba(53, 59, 72,1.0)',
       
     },
+    buttonAddText: {
+      color: "white",
+      fontSize: 50,
+      bottom: 15,
+      left: 5,
+    },
+
 });
