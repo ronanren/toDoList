@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button, FlatList, Dimensions, TextInput, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Button, FlatList, Dimensions, TextInput, KeyboardAvoidingView, TouchableOpacity, AsyncStorage } from 'react-native';
 import Header from './components/Header';
 
 
@@ -7,17 +7,33 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      tasks: [{name: "tache 1", index: 0}, {name: "tache 2", index: 1}],
+      tasks: [],
       onChangeText: "",
-
+      index: 0,
     };
   }
+
+  async componentDidMount() {
+    let tasks = JSON.parse(await AsyncStorage.getItem('tasks'));
+    let index = parseInt(await AsyncStorage.getItem('index'));
+    if (tasks == null){
+      tasks = [{name:"Example task", index: 0}];
+    }
+    if (isNaN(index)){
+      index = 1;
+    }
+    this.setState({tasks: tasks, index });
+  };
 
   addTask = () => {
     if (this.state.onChangeText != ""){
       let tasks = [...this.state.tasks];
-      tasks.push({ name: this.state.onChangeText, index: this.state.tasks.length + 1});
-      this.setState({tasks, onChangeText: ""});
+      let index = this.state.index + 1;
+      tasks.push({ name: this.state.onChangeText, index: this.state.index});
+      this.setState({tasks, onChangeText: "", index});
+      AsyncStorage.setItem('tasks', JSON.stringify(tasks));
+      AsyncStorage.setItem('index', index.toString());
+      console.log(index);
     }
   }
 
@@ -25,6 +41,7 @@ export default class App extends React.Component {
     let tasks = [...this.state.tasks];
     tasks = tasks.filter(x => {return x.index != index;});
     this.setState({tasks});
+    AsyncStorage.setItem('tasks', JSON.stringify(tasks));
   }
 
 
