@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button, FlatList, Dimensions, TextInput, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
+import Header from './components/Header';
 
 
 export default class App extends React.Component {
@@ -30,31 +31,32 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-          <Text style={styles.text}>To Do List</Text>
+          
+          <Header />
+
           <FlatList
           data={this.state.tasks}
           renderItem={({item}) => 
-          <View>
-          <View style={styles.buttonDelete}>
-            <Button onPress={() => this.deleteTask(item.index)} title="X"/>
-            
-          </View>
-            <Text style={styles.item}>{item.name}</Text>
-            
+            <View>
+              <View style={styles.buttonDelete}>
+                <Button onPress={() => this.deleteTask(item.index)} title="" color="#4285f4"/>
+              </View>
+              <Text style={styles.item}>{item.name}</Text>
             </View> }
           keyExtractor={(item, index) => index.toString()}/>
+
           <KeyboardAvoidingView behavior="padding" enabled>
-          <TextInput
-          style={styles.textInput}
-          placeholder="New task"
-          onChangeText={onChangeText => this.setState({onChangeText})}
-          value={this.state.onChangeText}
-          />
-          <View style={styles.buttonAdd} >
-            <TouchableOpacity onPress={this.addTask} >
-                <Text style={styles.buttonAddText}>+</Text>
-            </TouchableOpacity>
-          </View>
+            <TextInput
+            style={styles.textInput}
+            placeholder="New task"
+            onChangeText={onChangeText => this.setState({onChangeText})}
+            value={this.state.onChangeText}
+            />
+            <View style={styles.buttonAdd} >
+              <TouchableOpacity onPress={this.addTask} hitSlop={{top: 20, bottom: 20, left: 50, right: 50}} >
+                  <Text style={styles.buttonAddText}>+ Add a new task</Text>
+              </TouchableOpacity>
+            </View>
           </KeyboardAvoidingView>
       </View>
 
@@ -79,16 +81,9 @@ const styles = StyleSheet.create({
       borderBottomColor: '#ccc',
       borderBottomWidth: 1
     },
-    text: {
-      fontSize: 25,
-      marginTop: 15, 
-      marginBottom: 20
-    },
     textInput: {
       height: 40, 
-      borderColor: 'gray', 
-      borderWidth: 1,
-      width: ScreenWidth,
+      width: ScreenWidth - 10,
       marginBottom: 20,
     },
     buttonDelete: {
@@ -97,21 +92,24 @@ const styles = StyleSheet.create({
       marginBottom: -30,
       top: 10,
       left: 10,
-      width: 40,  
+      width: 40, 
     },
     buttonAdd: {
       padding: 5,
       height: 50,
-      width: 50,
+      width: 150,
       borderRadius: 100,  
-      backgroundColor:'rgba(53, 59, 72,1.0)',
-      
+      backgroundColor:'rgb(66, 133, 244)',
+      marginLeft: "auto",
+      marginRight: "auto",
     },
     buttonAddText: {
       color: "white",
-      fontSize: 50,
-      bottom: 15,
-      left: 5,
+      fontFamily: "Roboto",
+      fontSize: 17,
+      top: 8,
+      
     },
 
 });
+
