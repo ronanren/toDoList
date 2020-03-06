@@ -13,9 +13,11 @@ export default class App extends React.Component {
   }
 
   addTask = () => {
-    let tasks = [...this.state.tasks];
-    tasks.push({ name: this.state.onChangeText, index: this.state.tasks.length + 1});
-    this.setState({tasks, onChangeText: ""});
+    if (this.state.onChangeText != ""){
+      let tasks = [...this.state.tasks];
+      tasks.push({ name: this.state.onChangeText, index: this.state.tasks.length + 1});
+      this.setState({tasks, onChangeText: ""});
+    }
   }
 
   deleteTask = (index) => {
