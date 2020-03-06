@@ -50,11 +50,11 @@ export default class App extends React.Component {
           onChangeText={onChangeText => this.setState({onChangeText})}
           value={this.state.onChangeText}
           />
-          <TouchableOpacity onPress={this.addTask} >
-            <View style={styles.buttonAdd} >
-              <Text style={styles.buttonAddText}>+</Text>
-            </View>
-          </TouchableOpacity>
+          <View style={styles.buttonAdd} >
+            <TouchableOpacity onPress={this.addTask} >
+                <Text style={styles.buttonAddText}>+</Text>
+            </TouchableOpacity>
+          </View>
           </KeyboardAvoidingView>
       </View>
 
