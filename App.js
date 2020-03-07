@@ -49,7 +49,7 @@ export default class App extends React.Component {
       <View style={styles.container}>
           
           <Header />
-          // List of tasks with delete button
+          {/* List of tasks with delete button */}
           <FlatList
           data={this.state.tasks}
           renderItem={({item}) => 
@@ -61,7 +61,7 @@ export default class App extends React.Component {
             </View> }
           keyExtractor={(item, index) => index.toString()}/>
 
-          // TextInput to write task and button to add task
+          {/* TextInput to write task and button to add task */}
           <KeyboardAvoidingView behavior="padding" enabled>
             <TextInput
             style={styles.textInput}
@@ -69,7 +69,8 @@ export default class App extends React.Component {
             onChangeText={onChangeText => this.setState({onChangeText})}
             value={this.state.onChangeText}
             />
-            // Button to add new task
+
+            {/* Button to add new task */}
             <View style={styles.buttonAdd} >
               <TouchableOpacity onPress={this.addTask} hitSlop={{top: 20, bottom: 20, left: 50, right: 50}} >
                   <Text style={styles.buttonAddText}>+ Add a new task</Text>
