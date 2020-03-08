@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button, FlatList, Dimensions, TextInput, KeyboardAvoidingView, TouchableOpacity, AsyncStorage } from 'react-native';
+import { StyleSheet, Text, View, Button, FlatList, Dimensions, TextInput, KeyboardAvoidingView, TouchableOpacity, 
+         AsyncStorage } from 'react-native';
 import Header from './components/Header';
-import DraggableFlatList from 'react-native-draggable-dynamic-flatlist'
+
 
 
 export default class App extends React.Component {
@@ -10,52 +11,49 @@ export default class App extends React.Component {
     this.state = {
       tasks: [],
       onChangeText: "",
-      index: 0,
+      id: 0,
     };
   }
 
   async componentDidMount() {
     let tasks = JSON.parse(await AsyncStorage.getItem('tasks'));
-    let index = parseInt(await AsyncStorage.getItem('index'));
+    let id = parseInt(await AsyncStorage.getItem('id'));
     if (tasks == null){
-      tasks = [{name:"Example task", index: 0}];
+      tasks = [{name:"Example task", id: 0, index: 0}];
     }
-    if (isNaN(index)){
-      index = 1;
+    if (isNaN(id)){
+      id = 1;
     }
-    this.setState({tasks: tasks, index });
+    this.setState({tasks: tasks, id });
   };
 
   addTask = () => {
     if (this.state.onChangeText != ""){
       let tasks = [...this.state.tasks];
-      let index = this.state.index + 1;
-      tasks.push({ name: this.state.onChangeText, index: this.state.index});
-      this.setState({tasks, onChangeText: "", index});
+      let id = this.state.id + 1;
+      tasks.push({ name: this.state.onChangeText, id: this.state.id, index: this.state.tasks.length });
+      this.setState({tasks, onChangeText: "", id});
       AsyncStorage.setItem('tasks', JSON.stringify(tasks));
-      AsyncStorage.setItem('index', index.toString());
+      AsyncStorage.setItem('id', id.toString());
     }
   }
 
-  deleteTask = (index) => {
+  deleteTask = (id) => {
     let tasks = [...this.state.tasks];
-    tasks = tasks.filter(x => {return x.index != index;});
+    tasks = tasks.filter(x => {return x.id != id;});
+    tasks = tasks.map(function (item, index) {
+      item.index = index;
+      return item;
+    });
     this.setState({tasks});
     AsyncStorage.setItem('tasks', JSON.stringify(tasks));
   }
 
-  renderItem = ({ item, index, move, moveEnd, isActive }) => {
-    return (
-      <TouchableOpacity onLongPress={move} onPressOut={moveEnd}>
-        <View style={styles.buttonDelete}>
-          <Button onPress={() => this.deleteTask(item.index)} title="" color="#4285f4"/>
-        </View>
-        <Text style={styles.item}>{item.name}</Text>
-      </TouchableOpacity>
-    )
+  upTask = (index) => {
+    console.log("djdfj")
   }
 
- 
+  
 
   render() {
     return (
@@ -63,30 +61,20 @@ export default class App extends React.Component {
           
           <Header />
           {/* List of tasks with delete button */}
-          {/*
+          
           <FlatList
           data={this.state.tasks}
           renderItem={({item}) => 
             <View>
               <View style={styles.buttonDelete}>
-                <Button onPress={() => this.deleteTask(item.index)} title="" color="#4285f4"/>
+                <Button onPress={() => this.deleteTask(item.id)} title="" color="#4285f4"/>
               </View>
               <Text style={styles.item}>{item.name}</Text>
+              <View style={styles.buttonUp}>
+                <Button onPress={() => this.upTask(item.index)} title="↑" color="#ccc"/>
+              </View>
             </View> }
-          keyExtractor={(item, index) => index.toString()}/>
-        */}
-
-          <View style={{ flex: 1 }}>
-            <DraggableFlatList
-            data={this.state.tasks}
-            renderItem={this.renderItem}
-            keyExtractor={(item, index) => `draggable-item-${item.name}`}
-            scrollPercent={5}
-            scaleSelectionFactor={1}
-            removeClippedSubviews={true}
-            onMoveEnd={({ data }) => this.setState({ data })}
-          />
-          </View>
+          keyExtractor={(item, id) => id.toString()}/>
 
           {/* TextInput to write task and button to add task */}
           <KeyboardAvoidingView behavior="padding" enabled>
@@ -108,6 +96,7 @@ export default class App extends React.Component {
 
     );
 } }
+
 
 let ScreenWidth = Dimensions.get("window").width;
 const styles = StyleSheet.create({
@@ -139,6 +128,13 @@ const styles = StyleSheet.create({
       top: 10,
       left: 10,
       width: 40, 
+    },
+    buttonUp: {
+      zIndex: 0,
+      position: 'absolute',
+      left: ScreenWidth - 50,
+      width: 20,
+      top: 10, 
     },
     buttonAdd: {
       padding: 5,
