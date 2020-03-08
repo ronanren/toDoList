@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button, FlatList, Dimensions, TextInput, KeyboardAvoidingView, TouchableOpacity, AsyncStorage } from 'react-native';
 import Header from './components/Header';
+import DraggableFlatList from 'react-native-draggable-dynamic-flatlist'
 
 
 export default class App extends React.Component {
@@ -43,6 +44,18 @@ export default class App extends React.Component {
     AsyncStorage.setItem('tasks', JSON.stringify(tasks));
   }
 
+  renderItem = ({ item, index, move, moveEnd, isActive }) => {
+    return (
+      <TouchableOpacity onLongPress={move} onPressOut={moveEnd}>
+        <View style={styles.buttonDelete}>
+          <Button onPress={() => this.deleteTask(item.index)} title="" color="#4285f4"/>
+        </View>
+        <Text style={styles.item}>{item.name}</Text>
+      </TouchableOpacity>
+    )
+  }
+
+ 
 
   render() {
     return (
@@ -50,6 +63,7 @@ export default class App extends React.Component {
           
           <Header />
           {/* List of tasks with delete button */}
+          {/*
           <FlatList
           data={this.state.tasks}
           renderItem={({item}) => 
@@ -60,6 +74,19 @@ export default class App extends React.Component {
               <Text style={styles.item}>{item.name}</Text>
             </View> }
           keyExtractor={(item, index) => index.toString()}/>
+        */}
+
+          <View style={{ flex: 1 }}>
+            <DraggableFlatList
+            data={this.state.tasks}
+            renderItem={this.renderItem}
+            keyExtractor={(item, index) => `draggable-item-${item.name}`}
+            scrollPercent={5}
+            scaleSelectionFactor={1}
+            removeClippedSubviews={true}
+            onMoveEnd={({ data }) => this.setState({ data })}
+          />
+          </View>
 
           {/* TextInput to write task and button to add task */}
           <KeyboardAvoidingView behavior="padding" enabled>
