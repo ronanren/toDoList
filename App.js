@@ -50,7 +50,7 @@ export default class App extends React.Component {
   }
 
   upTask = (index) => {
-    console.log("djdfj")
+    console.log(index)
   }
 
   
