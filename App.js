@@ -3,12 +3,11 @@ import {
   StyleSheet,
   Text,
   View,
-  Button,
-  FlatList,
   Dimensions,
   TextInput,
   KeyboardAvoidingView,
   TouchableOpacity,
+  Button,
   AsyncStorage
 } from "react-native";
 import Header from "./components/Header";
@@ -81,10 +80,19 @@ export default class App extends React.Component {
         }}
         onLongPress={drag}
       >
+        <View style={styles.buttonDelete}>
+          <Button
+            title="X"
+            color="#ccc"
+            onPress={() => this.deleteTask(item.id)}
+          />
+        </View>
+
         <Text
           style={{
             color: "black",
-            fontSize: 18
+            fontSize: 18,
+            bottom: 12
           }}
         >
           {item.name}
@@ -140,28 +148,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center"
   },
-  item: {
-    padding: 10,
-    fontSize: 18,
-    height: 45,
-    marginTop: 5,
-    paddingLeft: 60,
-    width: ScreenWidth,
-    borderBottomColor: "#ccc",
-    borderBottomWidth: 1
-  },
   textInput: {
     height: 40,
     width: ScreenWidth - 10,
     marginBottom: 20
   },
   buttonDelete: {
-    zIndex: 1,
-    position: "relative",
-    marginBottom: -30,
-    top: 10,
-    left: 10,
-    width: 40
+    top: 12,
+    left: -ScreenWidth / 2 + 20
   },
   buttonAdd: {
     padding: 5,
