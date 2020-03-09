@@ -56,8 +56,15 @@ export default class App extends React.Component {
     AsyncStorage.setItem("tasks", JSON.stringify(tasks));
   };
 
-  upTask = id => {
-    console.log(this.state.tasks);
+  updateTask = data => {
+    let tasks = Object.keys(data.data)
+      .map(i => data.data[i])
+      .map(function(item, id) {
+        item.id = id;
+        return item;
+      });
+    this.setState({ tasks });
+    AsyncStorage.setItem("tasks", JSON.stringify(tasks));
   };
 
   renderItem = ({ item, index, drag, isActive }) => {
@@ -121,8 +128,8 @@ export default class App extends React.Component {
           <DraggableFlatList
             data={this.state.tasks}
             renderItem={this.renderItem}
-            keyExtractor={(item, index) => `draggable-item-${item.id}`}
-            onDragEnd={({ data }) => this.setState({ data })}
+            keyExtractor={(item, id) => `draggable-item-${item.id}`}
+            onDragEnd={({ data }) => this.updateTask({ data })}
           />
         </View>
 
