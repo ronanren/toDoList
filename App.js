@@ -12,6 +12,7 @@ import {
   AsyncStorage
 } from "react-native";
 import Header from "./components/Header";
+import DraggableFlatList from "react-native-draggable-flatlist";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -59,12 +60,39 @@ export default class App extends React.Component {
     console.log(this.state.tasks);
   };
 
+  renderItem = ({ item, index, drag, isActive }) => {
+    return (
+      <TouchableOpacity
+        style={{
+          height: 45,
+          width: ScreenWidth,
+          backgroundColor: "white",
+          alignItems: "center",
+          justifyContent: "center",
+          borderBottomColor: "#ccc",
+          borderBottomWidth: 1
+        }}
+        onLongPress={drag}
+      >
+        <Text
+          style={{
+            color: "black",
+            fontSize: 18
+          }}
+        >
+          {item.name}
+        </Text>
+      </TouchableOpacity>
+    );
+  };
+
   render() {
     return (
       <View style={styles.container}>
         <Header />
         {/* List of tasks with delete button */}
 
+        {/*
         <FlatList
           data={this.state.tasks}
           renderItem={({ item }) => (
@@ -87,7 +115,16 @@ export default class App extends React.Component {
             </View>
           )}
           keyExtractor={(item, id) => id.toString()}
-        />
+        /> 
+        */}
+        <View style={{ flex: 1 }}>
+          <DraggableFlatList
+            data={this.state.tasks}
+            renderItem={this.renderItem}
+            keyExtractor={(item, index) => `draggable-item-${item.id}`}
+            onDragEnd={({ data }) => this.setState({ data })}
+          />
+        </View>
 
         {/* TextInput to write task and button to add task */}
         <KeyboardAvoidingView behavior="padding" enabled>
