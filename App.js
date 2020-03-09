@@ -97,33 +97,8 @@ export default class App extends React.Component {
     return (
       <View style={styles.container}>
         <Header />
-        {/* List of tasks with delete button */}
 
-        {/*
-        <FlatList
-          data={this.state.tasks}
-          renderItem={({ item }) => (
-            <View>
-              <View style={styles.buttonDelete}>
-                <Button
-                  onPress={() => this.deleteTask(item.id)}
-                  title=""
-                  color="#4285f4"
-                />
-              </View>
-              <Text style={styles.item}>{item.name}</Text>
-              <View style={styles.buttonUp}>
-                <Button
-                  onPress={() => this.upTask(item.id)}
-                  title="↑"
-                  color="#ccc"
-                />
-              </View>
-            </View>
-          )}
-          keyExtractor={(item, id) => id.toString()}
-        /> 
-        */}
+        {/* List of tasks with delete button */}
         <View style={{ flex: 1 }}>
           <DraggableFlatList
             data={this.state.tasks}
@@ -187,13 +162,6 @@ const styles = StyleSheet.create({
     top: 10,
     left: 10,
     width: 40
-  },
-  buttonUp: {
-    zIndex: 0,
-    position: "absolute",
-    left: ScreenWidth - 50,
-    width: 20,
-    top: 10
   },
   buttonAdd: {
     padding: 5,
