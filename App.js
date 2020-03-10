@@ -7,11 +7,11 @@ import {
   TextInput,
   KeyboardAvoidingView,
   TouchableOpacity,
-  Button,
   AsyncStorage
 } from "react-native";
 import Header from "./components/Header";
 import DraggableFlatList from "react-native-draggable-flatlist";
+import SwipeableItem from "react-native-swipeable-item";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -80,6 +80,7 @@ export default class App extends React.Component {
         }}
         onLongPress={drag}
       >
+        {/*
         <View style={styles.buttonDelete}>
           <Button
             title="X"
@@ -87,12 +88,11 @@ export default class App extends React.Component {
             onPress={() => this.deleteTask(item.id)}
           />
         </View>
-
+        */}
         <Text
           style={{
             color: "black",
-            fontSize: 18,
-            bottom: 12
+            fontSize: 18
           }}
         >
           {item.name}
@@ -106,7 +106,7 @@ export default class App extends React.Component {
       <View style={styles.container}>
         <Header />
 
-        {/* List of tasks with delete button */}
+        {/* List of tasks */}
         <View style={{ flex: 1 }}>
           <DraggableFlatList
             data={this.state.tasks}
