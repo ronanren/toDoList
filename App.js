@@ -7,11 +7,11 @@ import {
   TextInput,
   KeyboardAvoidingView,
   TouchableOpacity,
-  AsyncStorage
+  AsyncStorage,
+  Button
 } from "react-native";
 import Header from "./components/Header";
 import DraggableFlatList from "react-native-draggable-flatlist";
-import SwipeableItem from "react-native-swipeable-item";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -21,7 +21,6 @@ export default class App extends React.Component {
       onChangeText: ""
     };
   }
-
   async componentDidMount() {
     let tasks = JSON.parse(await AsyncStorage.getItem("tasks"));
     if (tasks == null) {
@@ -80,7 +79,6 @@ export default class App extends React.Component {
         }}
         onLongPress={drag}
       >
-        {/*
         <View style={styles.buttonDelete}>
           <Button
             title="X"
@@ -88,7 +86,7 @@ export default class App extends React.Component {
             onPress={() => this.deleteTask(item.id)}
           />
         </View>
-        */}
+
         <Text
           style={{
             color: "black",
@@ -129,7 +127,12 @@ export default class App extends React.Component {
           <View style={styles.buttonAdd}>
             <TouchableOpacity
               onPress={this.addTask}
-              hitSlop={{ top: 20, bottom: 20, left: 50, right: 50 }}
+              hitSlop={{
+                top: 20,
+                bottom: 20,
+                left: 50,
+                right: 50
+              }}
             >
               <Text style={styles.buttonAddText}>+ Add a new task</Text>
             </TouchableOpacity>
