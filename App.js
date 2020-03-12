@@ -7,11 +7,13 @@ import {
   TextInput,
   KeyboardAvoidingView,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   AsyncStorage,
   Button
 } from "react-native";
 import Header from "./components/Header";
 import DraggableFlatList from "react-native-draggable-flatlist";
+import { Icon } from "native-base";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -79,18 +81,14 @@ export default class App extends React.Component {
         }}
         onLongPress={drag}
       >
-        <View style={styles.buttonDelete}>
-          <Button
-            title="X"
-            color="#ccc"
-            onPress={() => this.deleteTask(item.id)}
-          />
-        </View>
-
+        <TouchableWithoutFeedback onPress={() => this.deleteTask(item.id)}>
+          <Icon name={"radio-button-off"} style={styles.buttonDelete} />
+        </TouchableWithoutFeedback>
         <Text
           style={{
             color: "black",
-            fontSize: 18
+            fontSize: 18,
+            top: -15
           }}
         >
           {item.name}
@@ -158,7 +156,9 @@ const styles = StyleSheet.create({
   },
   buttonDelete: {
     top: 12,
-    left: -ScreenWidth / 2 + 20
+    left: -ScreenWidth / 2 + 20,
+    color: "rgb(66, 133, 244)",
+    fontSize: 35
   },
   buttonAdd: {
     padding: 5,
