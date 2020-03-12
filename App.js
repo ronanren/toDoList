@@ -8,8 +8,7 @@ import {
   KeyboardAvoidingView,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  AsyncStorage,
-  Button
+  AsyncStorage
 } from "react-native";
 import Header from "./components/Header";
 import DraggableFlatList from "react-native-draggable-flatlist";
@@ -23,6 +22,7 @@ export default class App extends React.Component {
       onChangeText: ""
     };
   }
+
   async componentDidMount() {
     let tasks = JSON.parse(await AsyncStorage.getItem("tasks"));
     if (tasks == null) {
@@ -123,16 +123,8 @@ export default class App extends React.Component {
 
           {/* Button to add new task */}
           <View style={styles.buttonAdd}>
-            <TouchableOpacity
-              onPress={this.addTask}
-              hitSlop={{
-                top: 20,
-                bottom: 20,
-                left: 50,
-                right: 50
-              }}
-            >
-              <Text style={styles.buttonAddText}>+ Add a new task</Text>
+            <TouchableOpacity onPress={this.addTask}>
+              <Icon name="ios-add" color="white" style={styles.iconAdd} />
             </TouchableOpacity>
           </View>
         </KeyboardAvoidingView>
@@ -161,13 +153,18 @@ const styles = StyleSheet.create({
     fontSize: 35
   },
   buttonAdd: {
-    padding: 5,
     height: 50,
-    width: 150,
+    width: 50,
     borderRadius: 100,
     backgroundColor: "rgb(66, 133, 244)",
     marginLeft: "auto",
     marginRight: "auto"
+  },
+  iconAdd: {
+    color: "white",
+    marginLeft: "auto",
+    marginRight: "auto",
+    top: 10
   },
   buttonAddText: {
     color: "white",
