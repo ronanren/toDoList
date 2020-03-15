@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import Header from "./components/Header";
 import DraggableFlatList from "react-native-draggable-flatlist";
-import { Icon } from "react-native-elements";
+import { Icon, CheckBox } from "react-native-elements";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -131,9 +131,13 @@ export default class App extends React.Component {
 
           {/* Button to add new task */}
           <View style={styles.buttonAdd}>
-            <TouchableOpacity onPress={this.addTask}>
-              <Icon name="plus" color="white" style={styles.iconAdd} />
-            </TouchableOpacity>
+            <Icon
+              name="ios-add-circle-outline"
+              type="ionicon"
+              color="rgb(66, 133, 244)"
+              size={55}
+              onPress={this.addTask}
+            />
           </View>
         </KeyboardAvoidingView>
       </View>
@@ -159,10 +163,6 @@ const styles = StyleSheet.create({
     left: -ScreenWidth / 2 + 20
   },
   buttonAdd: {
-    height: 50,
-    width: 50,
-    borderRadius: 100,
-    backgroundColor: "rgb(66, 133, 244)",
     marginLeft: "auto",
     marginRight: "auto"
   },
