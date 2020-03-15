@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import Header from "./components/Header";
 import DraggableFlatList from "react-native-draggable-flatlist";
-import { Icon } from "native-base";
+import { Icon } from "react-native-elements";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -81,14 +81,22 @@ export default class App extends React.Component {
         }}
         onLongPress={drag}
       >
-        <TouchableWithoutFeedback onPress={() => this.deleteTask(item.id)}>
-          <Icon name={"radio-button-off"} style={styles.buttonDelete} />
-        </TouchableWithoutFeedback>
+        <View style={styles.buttonDelete}>
+          <Icon
+            name="ios-checkmark-circle-outline"
+            type="ionicon"
+            color="rgb(66, 133, 244)"
+            size={35}
+            onPress={() => this.deleteTask(item.id)}
+          />
+        </View>
         <Text
           style={{
             color: "black",
             fontSize: 18,
-            top: -15
+            top: -15,
+            width: "100%",
+            left: -ScreenWidth / 2 + 250
           }}
         >
           {item.name}
@@ -124,7 +132,7 @@ export default class App extends React.Component {
           {/* Button to add new task */}
           <View style={styles.buttonAdd}>
             <TouchableOpacity onPress={this.addTask}>
-              <Icon name="ios-add" color="white" style={styles.iconAdd} />
+              <Icon name="plus" color="white" style={styles.iconAdd} />
             </TouchableOpacity>
           </View>
         </KeyboardAvoidingView>
@@ -148,9 +156,7 @@ const styles = StyleSheet.create({
   },
   buttonDelete: {
     top: 12,
-    left: -ScreenWidth / 2 + 20,
-    color: "rgb(66, 133, 244)",
-    fontSize: 35
+    left: -ScreenWidth / 2 + 20
   },
   buttonAdd: {
     height: 50,
@@ -164,7 +170,8 @@ const styles = StyleSheet.create({
     color: "white",
     marginLeft: "auto",
     marginRight: "auto",
-    top: 10
+    top: 10,
+    fontSize: 30
   },
   buttonAddText: {
     color: "white",
