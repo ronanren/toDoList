@@ -146,6 +146,7 @@ export default class App extends React.Component {
 }
 
 let ScreenWidth = Dimensions.get("window").width;
+let ScreenHeight = Dimensions.get("window").height;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -154,9 +155,8 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   textInput: {
-    height: 40,
-    width: ScreenWidth - 10,
-    marginBottom: 20
+    height: 20,
+    width: ScreenWidth - 10
   },
   buttonDelete: {
     top: 12,
