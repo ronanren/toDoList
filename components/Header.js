@@ -3,14 +3,15 @@ import { Text, View, StyleSheet } from "react-native";
 
 class Header extends Component {
   render() {
-    return <Text style={styles.text}>To Do List</Text>;
+    return <Text style={styles.text}>My tasks</Text>;
   }
 }
 const styles = StyleSheet.create({
   text: {
-    fontSize: 25,
-    marginTop: 15,
-    marginBottom: 20,
+    fontSize: 34,
+    marginTop: 35,
+    marginBottom: 15,
+    marginRight: 160,
     fontFamily: "Roboto"
   }
 });
