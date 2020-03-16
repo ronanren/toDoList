@@ -3,7 +3,11 @@ import { Text, View, StyleSheet } from "react-native";
 
 class Header extends Component {
   render() {
-    return <Text style={styles.text}>My tasks</Text>;
+    return (
+      <Text style={[styles.text, { color: this.props.colorText }]}>
+        My tasks
+      </Text>
+    );
   }
 }
 const styles = StyleSheet.create({

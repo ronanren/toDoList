@@ -12,14 +12,16 @@ import {
 } from "react-native";
 import Header from "./components/Header";
 import DraggableFlatList from "react-native-draggable-flatlist";
-import { Icon, CheckBox } from "react-native-elements";
+import { Icon } from "react-native-elements";
+import Switch from "expo-dark-mode-switch";
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       tasks: [],
-      onChangeText: ""
+      onChangeText: "",
+      isDarkMode: true
     };
   }
 
@@ -67,13 +69,16 @@ export default class App extends React.Component {
     AsyncStorage.setItem("tasks", JSON.stringify(tasks));
   };
 
+  updateDarkMode = value => {
+    this.setState({ isDarkMode: value });
+  };
+
   renderItem = ({ item, index, drag, isActive }) => {
     return (
       <TouchableOpacity
         style={{
           height: 45,
           width: ScreenWidth,
-          backgroundColor: "white",
           alignItems: "center",
           justifyContent: "center",
           borderBottomColor: "#ccc",
@@ -90,15 +95,7 @@ export default class App extends React.Component {
             onPress={() => this.deleteTask(item.id)}
           />
         </View>
-        <Text
-          style={{
-            color: "black",
-            fontSize: 18,
-            top: -15,
-            width: "100%",
-            left: -ScreenWidth / 2 + 250
-          }}
-        >
+        <Text style={[styles.textItem, { color: this.props.colorText }]}>
           {item.name}
         </Text>
       </TouchableOpacity>
@@ -107,8 +104,18 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Header />
+      <View
+        style={[
+          styles.container,
+          {
+            backgroundColor:
+              this.state.isDarkMode === false ? "#fff" : "#202124"
+          }
+        ]}
+      >
+        <Header
+          colorText={this.state.isDarkMode === false ? "#000" : "#E4E6E9"}
+        />
 
         {/* List of tasks */}
         <View style={{ flex: 1 }}>
@@ -117,6 +124,7 @@ export default class App extends React.Component {
             renderItem={this.renderItem}
             keyExtractor={(item, id) => `draggable-item-${item.id}`}
             onDragEnd={({ data }) => this.updateTask({ data })}
+            colorText={this.state.isDarkMode === false ? "red" : "blue"}
           />
         </View>
 
@@ -139,6 +147,12 @@ export default class App extends React.Component {
               onPress={this.addTask}
             />
           </View>
+          <View style={styles.buttonDarkMode}>
+            <Switch
+              value={this.state.isDarkMode}
+              onChange={value => this.updateDarkMode(value)}
+            />
+          </View>
         </KeyboardAvoidingView>
       </View>
     );
@@ -157,6 +171,13 @@ const styles = StyleSheet.create({
   textInput: {
     height: 20,
     width: ScreenWidth - 10
+  },
+  textItem: {
+    color: "black",
+    fontSize: 18,
+    top: -15,
+    width: "100%",
+    left: -ScreenWidth / 2 + 250
   },
   buttonDelete: {
     top: 12,
