@@ -9,5 +9,5 @@ Application toDoList avec React native
 - [x] Changing the order of tasks
 - [x] Remove tasks with a check button
 - [x] Button switch to dark mode
-- [ ] Make history of removed task
+- [ ] Make history of removed task with a rolling list
 - [ ] Edit the name and color of the tasks with a button
