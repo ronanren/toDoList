@@ -21,7 +21,7 @@ export default class App extends React.Component {
     this.state = {
       tasks: [],
       onChangeText: "",
-      isDarkMode: true
+      isDarkMode: false
     };
   }
 
@@ -30,7 +30,8 @@ export default class App extends React.Component {
     if (tasks == null) {
       tasks = [{ name: "Example task", id: 0 }];
     }
-    this.setState({ tasks: tasks });
+    let isDark = JSON.parse(await AsyncStorage.getItem("isDarkMode"));
+    this.setState({ tasks: tasks, isDarkMode: !isDark });
   }
 
   addTask = () => {
@@ -71,6 +72,7 @@ export default class App extends React.Component {
 
   updateDarkMode = value => {
     this.setState({ isDarkMode: value });
+    AsyncStorage.setItem("isDarkMode", this.state.isDarkMode.toString());
   };
 
   renderItem = ({ item, index, drag, isActive }) => {
