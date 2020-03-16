@@ -2,6 +2,8 @@
 
 Application toDoList avec React native
 
+![Application Demo on Iphone 6s](assets/appAnimation.gif)
+
 ## Features
 
 - [x] Add tasks
