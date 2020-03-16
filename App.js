@@ -95,7 +95,12 @@ export default class App extends React.Component {
             onPress={() => this.deleteTask(item.id)}
           />
         </View>
-        <Text style={[styles.textItem, { color: this.props.colorText }]}>
+        <Text
+          style={[
+            styles.textItem,
+            { color: this.state.isDarkMode === false ? "black" : "#E4E6E9" }
+          ]}
+        >
           {item.name}
         </Text>
       </TouchableOpacity>
@@ -124,7 +129,7 @@ export default class App extends React.Component {
             renderItem={this.renderItem}
             keyExtractor={(item, id) => `draggable-item-${item.id}`}
             onDragEnd={({ data }) => this.updateTask({ data })}
-            colorText={this.state.isDarkMode === false ? "red" : "blue"}
+            extraData={this.state.isDarkMode}
           />
         </View>
 
@@ -173,7 +178,6 @@ const styles = StyleSheet.create({
     width: ScreenWidth - 10
   },
   textItem: {
-    color: "black",
     fontSize: 18,
     top: -15,
     width: "100%",
