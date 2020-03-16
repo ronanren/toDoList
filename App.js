@@ -92,6 +92,7 @@ export default class App extends React.Component {
             name="ios-checkmark-circle-outline"
             type="ionicon"
             color="rgb(66, 133, 244)"
+            underlayColor={this.state.isDarkMode === false ? "#fff" : "#202124"}
             size={35}
             onPress={() => this.deleteTask(item.id)}
           />
@@ -152,6 +153,9 @@ export default class App extends React.Component {
               name="ios-add-circle-outline"
               type="ionicon"
               color="rgb(66, 133, 244)"
+              underlayColor={
+                this.state.isDarkMode === false ? "#fff" : "#202124"
+              }
               size={55}
               onPress={this.addTask}
             />
@@ -207,5 +211,10 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto",
     fontSize: 17,
     top: 8
+  },
+  buttonDarkMode: {
+    position: "absolute",
+    left: ScreenWidth / 2 + 105,
+    top: 35
   }
 });
