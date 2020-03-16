@@ -7,7 +7,6 @@ import {
   TextInput,
   KeyboardAvoidingView,
   TouchableOpacity,
-  TouchableWithoutFeedback,
   AsyncStorage
 } from "react-native";
 import Header from "./components/Header";
@@ -138,18 +137,21 @@ export default class App extends React.Component {
         </View>
 
         {/* TextInput to write task and button to add task */}
-        <KeyboardAvoidingView behavior="padding" enabled>
+        <KeyboardAvoidingView behavior="padding">
           <TextInput
             style={[
               styles.textInput,
               { color: this.state.isDarkMode === false ? "#000" : "#E4E6E9" }
             ]}
             placeholder="New task"
+            placeholderTextColor={
+              this.state.isDarkMode === false ? "#999" : "#E4E6E9"
+            }
             onChangeText={onChangeText => this.setState({ onChangeText })}
             value={this.state.onChangeText}
           />
-
           {/* Button to add new task */}
+
           <View style={styles.buttonAdd}>
             <Icon
               name="ios-add-circle-outline"
@@ -210,7 +212,6 @@ const styles = StyleSheet.create({
   },
   buttonAddText: {
     color: "white",
-    fontFamily: "Roboto",
     fontSize: 17,
     top: 8
   },
