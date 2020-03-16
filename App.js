@@ -81,7 +81,8 @@ export default class App extends React.Component {
           width: ScreenWidth,
           alignItems: "center",
           justifyContent: "center",
-          borderBottomColor: "#ccc",
+          borderBottomColor:
+            this.state.isDarkMode === false ? "#ccc" : "#333333",
           borderBottomWidth: 1
         }}
         onLongPress={drag}
@@ -136,7 +137,10 @@ export default class App extends React.Component {
         {/* TextInput to write task and button to add task */}
         <KeyboardAvoidingView behavior="padding" enabled>
           <TextInput
-            style={styles.textInput}
+            style={[
+              styles.textInput,
+              { color: this.state.isDarkMode === false ? "#000" : "#E4E6E9" }
+            ]}
             placeholder="New task"
             onChangeText={onChangeText => this.setState({ onChangeText })}
             value={this.state.onChangeText}
