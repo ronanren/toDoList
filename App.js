@@ -7,12 +7,14 @@ import {
   TextInput,
   KeyboardAvoidingView,
   TouchableOpacity,
-  AsyncStorage
+  AsyncStorage,
+  TouchableWithoutFeedback
 } from "react-native";
 import Header from "./components/Header";
 import DraggableFlatList from "react-native-draggable-flatlist";
 import { Icon } from "react-native-elements";
 import Switch from "expo-dark-mode-switch";
+import * as Animatable from "react-native-animatable";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -101,13 +103,25 @@ export default class App extends React.Component {
         <Text
           style={[
             styles.textItem,
-            { color: this.state.isDarkMode === false ? "black" : "#E4E6E9" }
+            {
+              color: this.state.isDarkMode === false ? "black" : "#E4E6E9"
+            }
           ]}
         >
           {item.name}
         </Text>
       </TouchableOpacity>
     );
+  };
+
+  handleViewRef = ref => (this.view = ref);
+  bounce = () => {
+    this.view
+      .bounce(800)
+      .then(endState =>
+        console.log(endState.finished ? "bounce finished" : "bounce cancelled")
+      );
+    this.addTask();
   };
 
   render() {
@@ -141,7 +155,9 @@ export default class App extends React.Component {
           <TextInput
             style={[
               styles.textInput,
-              { color: this.state.isDarkMode === false ? "#000" : "#E4E6E9" }
+              {
+                color: this.state.isDarkMode === false ? "#000" : "#E4E6E9"
+              }
             ]}
             placeholder="New task"
             placeholderTextColor={
@@ -151,18 +167,20 @@ export default class App extends React.Component {
             value={this.state.onChangeText}
           />
           {/* Button to add new task */}
-
           <View style={styles.buttonAdd}>
-            <Icon
-              name="ios-add-circle-outline"
-              type="ionicon"
-              color="rgb(66, 133, 244)"
-              underlayColor={
-                this.state.isDarkMode === false ? "#fff" : "#202124"
-              }
-              size={55}
-              onPress={this.addTask}
-            />
+            <TouchableWithoutFeedback onPress={this.bounce}>
+              <Animatable.View ref={this.handleViewRef}>
+                <Icon
+                  name="ios-add-circle-outline"
+                  type="ionicon"
+                  color="rgb(66, 133, 244)"
+                  underlayColor={
+                    this.state.isDarkMode === false ? "#fff" : "#202124"
+                  }
+                  size={55}
+                />
+              </Animatable.View>
+            </TouchableWithoutFeedback>
           </View>
           <View style={styles.buttonDarkMode}>
             <Switch
