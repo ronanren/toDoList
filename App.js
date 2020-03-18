@@ -115,14 +115,14 @@ export default class App extends React.Component {
   };
 
   handleViewRef = ref => (this.view = ref);
-  bounce = () => {
+  animation = () => {
     this.view.animate({
       0: {
         opacity: 1,
         scale: 1
       },
       0.5: {
-        opacity: 1,
+        opacity: 0.5,
         scale: 0.9
       },
       1: {
@@ -177,7 +177,7 @@ export default class App extends React.Component {
           />
           {/* Button to add new task */}
           <View style={styles.buttonAdd}>
-            <TouchableWithoutFeedback onPress={this.bounce}>
+            <TouchableWithoutFeedback onPress={this.animation}>
               <Animatable.View ref={this.handleViewRef}>
                 <Icon
                   name="ios-add-circle-outline"
