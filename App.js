@@ -116,11 +116,20 @@ export default class App extends React.Component {
 
   handleViewRef = ref => (this.view = ref);
   bounce = () => {
-    this.view
-      .bounce(800)
-      .then(endState =>
-        console.log(endState.finished ? "bounce finished" : "bounce cancelled")
-      );
+    this.view.animate({
+      0: {
+        opacity: 1,
+        scale: 1
+      },
+      0.5: {
+        opacity: 1,
+        scale: 0.9
+      },
+      1: {
+        opacity: 1,
+        scale: 1
+      }
+    });
     this.addTask();
   };
 
