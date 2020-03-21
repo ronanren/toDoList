@@ -76,7 +76,7 @@ export default class App extends React.Component {
     AsyncStorage.setItem("isDarkMode", this.state.isDarkMode.toString());
   };
 
-  {/* Each task to render in a draggable list */}
+  /* Each task to render in a draggable list */
   renderItem = ({ item, index, drag, isActive }) => {
     return (
       <TouchableOpacity
@@ -117,7 +117,7 @@ export default class App extends React.Component {
     );
   };
 
-  {/* Animation of button to add tasks */}
+  /* Animation of button to add tasks */
   handleViewRef = ref => (this.view = ref);
   animation = () => {
     this.view.animate({
@@ -164,7 +164,6 @@ export default class App extends React.Component {
           />
         </View>
 
-        
         <KeyboardAvoidingView behavior="padding">
           {/* TextInput to write task */}
           <TextInput
