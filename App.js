@@ -117,19 +117,20 @@ export default class App extends React.Component {
   handleViewRef = ref => (this.view = ref);
   animation = () => {
     this.view.animate({
-      0: {
+      from: {
         opacity: 1,
         scale: 1
       },
       0.5: {
-        opacity: 0.5,
+        opacity: 0.4,
         scale: 0.9
       },
-      1: {
+      to: {
         opacity: 1,
         scale: 1
       }
     });
+
     this.addTask();
   };
 
@@ -191,6 +192,7 @@ export default class App extends React.Component {
               </Animatable.View>
             </TouchableWithoutFeedback>
           </View>
+          {/* Button to change to dark/light mode */}
           <View style={styles.buttonDarkMode}>
             <Switch
               value={this.state.isDarkMode}
