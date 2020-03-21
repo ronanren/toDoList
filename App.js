@@ -76,6 +76,7 @@ export default class App extends React.Component {
     AsyncStorage.setItem("isDarkMode", this.state.isDarkMode.toString());
   };
 
+  {/* Each task to render in a draggable list */}
   renderItem = ({ item, index, drag, isActive }) => {
     return (
       <TouchableOpacity
@@ -90,6 +91,7 @@ export default class App extends React.Component {
         }}
         onLongPress={drag}
       >
+        {/* Button to delete task */}
         <View style={styles.buttonDelete}>
           <Icon
             name="ios-checkmark-circle-outline"
@@ -100,6 +102,7 @@ export default class App extends React.Component {
             onPress={() => this.deleteTask(item.id)}
           />
         </View>
+        {/* Text of task */}
         <Text
           style={[
             styles.textItem,
@@ -114,6 +117,7 @@ export default class App extends React.Component {
     );
   };
 
+  {/* Animation of button to add tasks */}
   handleViewRef = ref => (this.view = ref);
   animation = () => {
     this.view.animate({
@@ -130,7 +134,6 @@ export default class App extends React.Component {
         scale: 1
       }
     });
-
     this.addTask();
   };
 
@@ -145,6 +148,7 @@ export default class App extends React.Component {
           }
         ]}
       >
+        {/* Title at the top of the application */}
         <Header
           colorText={this.state.isDarkMode === false ? "#000" : "#E4E6E9"}
         />
@@ -160,8 +164,9 @@ export default class App extends React.Component {
           />
         </View>
 
-        {/* TextInput to write task and button to add task */}
+        
         <KeyboardAvoidingView behavior="padding">
+          {/* TextInput to write task */}
           <TextInput
             style={[
               styles.textInput,
@@ -206,7 +211,6 @@ export default class App extends React.Component {
 }
 
 let ScreenWidth = Dimensions.get("window").width;
-let ScreenHeight = Dimensions.get("window").height;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
