@@ -113,6 +113,15 @@ export default class App extends React.Component {
         >
           {item.name}
         </Text>
+        <View style={styles.buttonDetails}>
+          <Icon
+            name="ios-menu"
+            type="ionicon"
+            color="rgb(66, 133, 244)"
+            underlayColor={this.state.isDarkMode === false ? "#fff" : "#202124"}
+            size={35}
+          />
+        </View>
       </TouchableOpacity>
     );
   };
@@ -229,7 +238,12 @@ const styles = StyleSheet.create({
   },
   buttonDelete: {
     top: 12,
-    left: -ScreenWidth / 2 + 20
+    left: -ScreenWidth / 2 + 25
+  },
+  buttonDetails: {
+    position: "absolute",
+    top: 5,
+    left: ScreenWidth - 40
   },
   buttonAdd: {
     marginLeft: "auto",
