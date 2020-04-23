@@ -19,16 +19,14 @@
 
 # Fonctionnalités
 
-- [x] Add tasks
-- [x] Saving the tasks in order
-- [x] Changing the order of tasks
-- [x] Remove tasks with a check button :ballot_box_with_check:
-- [x] Button switch to dark mode :first_quarter_moon:
-- [ ] Make history of removed task with a rolling list
-- [ ] Edit the name and color of the tasks with a button
+- Ajouter des tâches
+- Enregistrer des tâches dans l'ordre
+- Changer l'ordre des tâches
+- Enlever chaque tâches avec un bouton ☑️
+- Bouton pour changer en mode sombre 🌓
 
 <p align="center">
-    <img src="assets/appAnimation.gif"/>
+    <img src="assets/appAnimation.gif" width="225px"/>
 </p>
 
 # Utilisation
