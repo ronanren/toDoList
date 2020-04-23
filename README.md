@@ -20,10 +20,10 @@
 # Fonctionnalités
 
 - Ajouter des tâches
-- Enregistrer des tâches dans l'ordre
+- Enregistrement des tâches dans l'ordre
 - Changer l'ordre des tâches
 - Enlever chaque tâches avec un bouton ☑️
-- Bouton pour changer en mode sombre 🌓
+- Possibilité de changer en mode sombre 🌓
 
 <p align="center">
     <img src="assets/appAnimation.gif" width="225px"/>
