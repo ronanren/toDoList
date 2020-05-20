@@ -47,7 +47,7 @@ $ npm start
 
 # Licence
 
-MIT
+<a href="https://github.com/ronanren/toDoList/blob/master/LICENSE" target="_blank">MIT</a>
 
 # Contactez-moi
 
